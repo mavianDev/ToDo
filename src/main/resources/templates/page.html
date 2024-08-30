@@ -28,9 +28,9 @@
             <span>Выполнено: <br> <p th:text="${task.isFinished}"></p></span>
             <span>Дата: <br> <p th:text="${#temporals.format(task.createdDate, 'dd-MM-yyyy HH:mm')}"></p></span>
             <br>
-            <a th:href="@{'/edit/' + ${task.id}}" class="btn btn-info">Редактировать</a>
             <form th:if="${!task.isFinished}" th:action="@{/complete/{id}(id=${task.id})}" method="post" style="display:inline;">
                 <button type="submit" class="btn btn-success">Выполнено</button>
+                <a th:href="@{'/edit/' + ${task.id}}" class="btn btn-info">Редактировать</a>
             </form>
             <form th:action="@{/delete/{id}(id=${task.id})}" method="post" style="display:inline;">
                 <input type="hidden" name="_method" value="delete"/>
