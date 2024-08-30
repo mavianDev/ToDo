@@ -21,14 +21,17 @@
             <p class="mt-2 text-danger">Задач нет</p>
         </div>
         <br>
-        <div th:each="task : ${tasks}" class="list-group-item list-group-item-action mt-3">
-            <span>Заголовок: <br> <h5 th:text="${task.taskName}"></h5></span>
-            <span>Описание: <br> <p th:text="${task.taskDescription}"></p></span>
+        <div th:each="task : ${tasks}" class="list-group-item list-group-item-action mt-3"
+             th:classappend="${task.isFinished} ? 'list-group-item-secondary' : ''">
+            <span>Заголовок: <br><h5 th:text="${task.taskName}" th:style="${task.isFinished} ? 'text-decoration: line-through;' : ''"></h5></span>
+            <span>Описание: <br><p th:text="${task.taskDescription}" th:style="${task.isFinished} ? 'text-decoration: line-through;' : ''"></p></span>
             <span>Выполнено: <br> <p th:text="${task.isFinished}"></p></span>
             <span>Дата: <br> <p th:text="${#temporals.format(task.createdDate, 'dd-MM-yyyy HH:mm')}"></p></span>
             <br>
             <a th:href="@{'/edit/' + ${task.id}}" class="btn btn-info">Редактировать</a>
-            <a href="#" class="btn btn-success">Выполнено</a>
+            <form th:if="${!task.isFinished}" th:action="@{/complete/{id}(id=${task.id})}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-success">Выполнено</button>
+            </form>
             <form th:action="@{/delete/{id}(id=${task.id})}" method="post" style="display:inline;">
                 <input type="hidden" name="_method" value="delete"/>
                 <button type="submit" class="btn btn-danger">Удалить</button>

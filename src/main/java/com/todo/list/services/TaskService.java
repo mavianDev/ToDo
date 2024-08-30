@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,7 +16,7 @@ public class TaskService {
     public TaskService () {}
 
     public List<TaskModel> getAllTasks () {
-        return taskRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
+        return taskRepository.findAll(Sort.by(Sort.Direction.ASC, "isFinished").and(Sort.by(Sort.Direction.DESC, "createdDate")));
     }
 
     public TaskModel getTaskById (Long id) {

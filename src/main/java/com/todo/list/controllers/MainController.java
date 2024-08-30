@@ -57,6 +57,18 @@ public class MainController {
             TaskModel existingTask = task.get();
             existingTask.setTaskName(updatedTask.getTaskName());
             existingTask.setTaskDescription(updatedTask.getTaskDescription());
+            updatedTask.setCreatedDate(LocalDateTime.now());
+            service.saveTask(existingTask);
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/complete/{id}")
+    public String completeTask(@PathVariable Long id) {
+        Optional<TaskModel> task = Optional.ofNullable(service.getTaskById(id));
+        if (task.isPresent()) {
+            TaskModel existingTask = task.get();
+            existingTask.setFinished(true);
             service.saveTask(existingTask);
         }
         return "redirect:/";
