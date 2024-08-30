@@ -23,10 +23,10 @@
         <br>
         <div th:each="task : ${tasks}" class="list-group-item list-group-item-action mt-3"
              th:classappend="${task.isFinished} ? 'list-group-item-secondary' : ''">
-            <span>Заголовок: <br><h5 th:text="${task.taskName}" th:style="${task.isFinished} ? 'text-decoration: line-through;' : ''"></h5></span>
-            <span>Описание: <br><p th:text="${task.taskDescription}" th:style="${task.isFinished} ? 'text-decoration: line-through;' : ''"></p></span>
-            <span th:if="${task.isFinished}">Выполнено: <br> <p class="text-success" style="font-size: 18px;">Да</p></span>
-            <span th:if="${!task.isFinished}">Выполнено: <br> <p class="text-danger" style="font-size: 18px;">Нет</p></span>
+            <span>Заголовок: <br><h5 style="font-size: 12px;" th:text="${task.taskName}" th:style="${task.isFinished} ? 'text-decoration: line-through;' : ''"></h5></span>
+            <span>Описание: <br><p style="font-size: 12px;" th:text="${task.taskDescription}" th:style="${task.isFinished} ? 'text-decoration: line-through;' : ''"></p></span>
+            <span th:if="${task.isFinished}">Выполнено: <br> <p class="text-success" style="font-size: 15px;">Да</p></span>
+            <span th:if="${!task.isFinished}">Выполнено: <br> <p class="text-danger" style="font-size: 15px;">Нет</p></span>
             <span>Дата: <br> <p style="font-size: 12px;" th:text="${#temporals.format(task.createdDate, 'dd-MM-yyyy HH:mm')}"></p></span>
             <br>
             <form th:if="${!task.isFinished}" th:action="@{/complete/{id}(id=${task.id})}" method="post" style="display:inline;">
