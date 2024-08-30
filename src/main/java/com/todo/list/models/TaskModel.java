@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Table(name = "TaskModel")
 public class TaskModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String taskName;
