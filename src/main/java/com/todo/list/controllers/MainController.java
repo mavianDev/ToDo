@@ -57,7 +57,7 @@ public class MainController {
             TaskModel existingTask = task.get();
             existingTask.setTaskName(updatedTask.getTaskName());
             existingTask.setTaskDescription(updatedTask.getTaskDescription());
-            updatedTask.setCreatedDate(LocalDateTime.now());
+            existingTask.setCreatedDate(LocalDateTime.now()); // if task was edited time will update to now.
             service.saveTask(existingTask);
         }
         return "redirect:/";
