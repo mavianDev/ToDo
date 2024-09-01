@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface DeletedTaskRepository extends JpaRepository<DeletedTaskModel, Long> {
     Optional<DeletedTaskModel> findByDeletedId(Long deletedId);
+    // repository to store DeletedTaskModel data
 }

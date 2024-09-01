@@ -18,6 +18,7 @@ public class TaskModel {
 
     private LocalDateTime createdDate;
 
+    // getters and setters
     public TaskModel () {}
 
     public Long getId() {

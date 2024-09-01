@@ -14,35 +14,37 @@ import java.util.Optional;
 public class MainController {
     private final TaskService service;
 
+    // initializing the TaskService
     public MainController (TaskService service) {
         this.service = service;
     }
 
+    // Routing
     @GetMapping ("/")
     public String mainPage (Model model) {
-        model.addAttribute("title", "ToDo Application");
-        model.addAttribute("tasks", service.getAllTasks());
+        model.addAttribute("title", "ToDo Application"); // set title
+        model.addAttribute("tasks", service.getAllTasks()); // show tasks
         return "page";
     }
 
     @GetMapping("/create")
     public String showCreateForm (Model model) {
-        model.addAttribute("tasks", new TaskModel());
-        model.addAttribute("title", "Создание задачи");
+        model.addAttribute("tasks", new TaskModel()); // creating the task by TaskModel
+        model.addAttribute("title", "Создание задачи"); // title
         return "task-create";
     }
 
     @PostMapping("/create")
     public String createTask (Model model, @ModelAttribute TaskModel task) {
-        task.setCreatedDate(LocalDateTime.now());
-        service.saveTask(task);
+        task.setCreatedDate(LocalDateTime.now()); // set Date to now
+        service.saveTask(task); // saving the task
         return "redirect:/";
     }
 
     @GetMapping("/edit/{id}")
     public String editTask (@PathVariable Long id, Model model) {
-        Optional<TaskModel> task = Optional.ofNullable(service.getTaskById(id));
-        if (task.isPresent()) {
+        Optional<TaskModel> task = Optional.ofNullable(service.getTaskById(id)); // getting task by id
+        if (task.isPresent()) { // condition if task is present
             model.addAttribute("tasks", task.get());
             return "task-edit";
         } else {
@@ -55,6 +57,7 @@ public class MainController {
         Optional<TaskModel> task = Optional.ofNullable(service.getTaskById(id));
         if (task.isPresent()) {
             TaskModel existingTask = task.get();
+            // set all parameters to tasks after edit
             existingTask.setTaskName(updatedTask.getTaskName());
             existingTask.setTaskDescription(updatedTask.getTaskDescription());
             existingTask.setCreatedDate(LocalDateTime.now()); // if task was edited time will update to now.

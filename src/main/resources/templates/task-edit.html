@@ -8,7 +8,7 @@
   <title th:text="${tasks.taskName}"></title>
 </head>
 <body>
-<div class="container">
+<div class="container text-center">
   <h1>Редактировать задачу</h1>
   <form th:action="@{'/edit/' + ${tasks.id}}" th:object="${tasks}" method="post">
     <div class="form-group">

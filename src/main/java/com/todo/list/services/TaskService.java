@@ -9,19 +9,23 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
+    // initializing TaskRepository
     @Autowired
     private TaskRepository taskRepository;
 
+    // initializing DeletedTaskRepository for deleted tasks
     @Autowired
     private DeletedTaskRepository deletedTaskRepository;
 
+    // empty constructor of class
     public TaskService () {}
 
+    // method to get all tasks
     public List<TaskModel> getAllTasks () {
+        // sorting by finished task
         return taskRepository.findAll(Sort.by(Sort.Direction.ASC, "isFinished").and(Sort.by(Sort.Direction.DESC, "createdDate")));
     }
 
@@ -39,8 +43,8 @@ public class TaskService {
     }
 
     public void deleteTask (Long id) {
-        taskRepository.deleteById(id);
-        deletedTaskRepository.save(new DeletedTaskModel(id));
+        taskRepository.deleteById(id); // delete task by id
+        deletedTaskRepository.save(new DeletedTaskModel(id)); // save it on DeletedTaskRepository
     }
 
 //    private Long findAvailableId() {

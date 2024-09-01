@@ -11,6 +11,7 @@ public class DeletedTaskModel {
 
     private Long deletedId;
 
+    // getters and setters
     public DeletedTaskModel(Long id) {
     }
 
